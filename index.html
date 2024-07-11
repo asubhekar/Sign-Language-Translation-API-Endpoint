@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Translation Tool</title>
+</head>
+<body style="background-color:powderblue;">
+    <h1 align = "center">Sign Language Translation Tool</h1>
+    <form align = "center" id="translationForm">
+        <label for="text">Enter text in English:</label>
+        <input type="text" id="text" name="text" required>
+        <button type="submit">Translate</button>
+    </form>
+    <p align = "center" id="responseMessage"></p>
+
+    <script >
+        // Function to handle form submission
+        async function handleFormSubmit(event) {
+            event.preventDefault();  // Prevent default form submission
+
+            const textInput = document.getElementById('text').value;  // Get the text input value
+
+            // Perform fetch to the backend API
+            try {
+                const response = await fetch('/translate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text: textInput }),
+                });
+
+                const responseData = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('responseMessage').textContent = responseData.translated_text;
+                    
+                } else {
+                    document.getElementById('responseMessage').textContent = `Error: ${responseData.error}`;
+                }
+            } catch (error) {
+                document.getElementById('responseMessage').textContent = 'Error: An unexpected error occurred';
+            }
+        }
+
+        // Attach the function to the form's submit event
+        document.getElementById('translationForm').addEventListener('submit', handleFormSubmit);
+    </script>
+</body>
+</html>
