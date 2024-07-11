@@ -1,2 +1,1 @@
 sanic==21.12.1
-python3-distutils
