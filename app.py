@@ -1,34 +1,26 @@
-from sanic import Sanic, response
-from sanic.request import Request
-from sanic.response import HTTPResponse, json
-from sanic.exceptions import SanicException
+from flask import Flask, request, jsonify, make_response
 
-app = Sanic("SignLanguageTranslationAPI")
+app = Flask(__name__)
 
-@app.route("/")
-async def index(request):
-    return await response.file("static/index.html")
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
-@app.route("/translate", methods=["POST"])
-async def translate(request: Request) -> HTTPResponse:
+@app.route('/translate', methods=['POST'])
+def translate():
     try:
-        data = request.json
-        text = data.get("text", "").strip()
+        data = request.get_json()
+        text = data.get('text', '').strip()
 
         if not text:
-            raise SanicException("No text provided", status_code=400)
+            return jsonify({'error': 'No text provided'}), 400
 
-        # Simulate translation process
-        translated_text = f"Successful translation of simulated text : {text}"
-        
+        translated_text = f'Successful translation of simulated text: {text}'
 
-        return json({"message": "Status code 200", "translated_text": translated_text})
-        
-    except SanicException as e:
-        return json({"error": e.args[0]}, status=e.status_code)
-        
+        return jsonify({'message': 'Successful Translation', 'translated_text': translated_text}), 200
+
     except Exception as e:
-        return json({"error": "An unexpected error occurred"}, status=500)
+        return jsonify({'error': 'An unexpected error occurred'}), 500
 
-#if __name__ == "__main__":
-#    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
