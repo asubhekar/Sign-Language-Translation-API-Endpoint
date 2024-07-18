@@ -9,8 +9,8 @@ For this task, I have generated an HTML file which and an app.py file.
 ### App.py file
 
 Functions: 
-- async def index(request): This function renders the main HTML interface for the sign language translation tool. 
-- async def translate(request): Processes the POST request which is a string input and returns the translated text in JSON format. It also handles exceptions and status codes.
+- def index(): This function renders the main HTML interface for the sign language translation tool. 
+- def translate(): Processes the POST request which is a string input and returns the translated text in JSON format. It also handles exceptions and status codes.
 
     POST /translate
     
@@ -19,7 +19,7 @@ Functions:
     - Body: { "text": "string" }
     
     Response:
-    - Success: { "message": "Translation successful", "translated_text": "Successful translation of simulated text {input_text}" }
+    - Success: {'message': 'Successful Translation', 'translated_text': translated_text}
     - Error: { "error": "Error: No Text Provided" }
     
     Status Codes:
