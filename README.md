@@ -2,7 +2,7 @@
 
 # Link : [http://subhuatharva.pythonanywhere.com]
 
-This assignment is to focus on implementing backend API service for a simulated translation of sign language interpretation. This task can be done using Flask or Sanic web frameworks. I chose Sanic Web Framework as it is easier to debug. The error codes were tested using Postman.
+This assignment is to focus on implementing backend API service for a simulated translation of sign language interpretation. I chose Flask Web Framework as it is easier to debug. The error codes were tested using Postman.
 
 For this task, I have generated an HTML file which and an app.py file. 
 
